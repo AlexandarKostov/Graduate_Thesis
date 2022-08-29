@@ -5,6 +5,8 @@ namespace Database\Seeders;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
 use App\Models\Course;
+use App\Models\Podcast;
+use App\Models\Video;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -28,5 +30,8 @@ class DatabaseSeeder extends Seeder
             CategorySeeder::class,
             CourseSeeder::class,
         ]);
+
+        Video::factory(55)->create();
+        Podcast::factory(40)->create();
     }
 }
