@@ -17,6 +17,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', [CourseController::class, 'index'])->name('courses.index');
+Route::post('course/enroll', [CourseController::class, 'enroll'])->name('courses.enroll');
 Route::get('course/{course:slug}', [CourseController::class, 'show'])->name('courses.show');
 
 Route::get('category/{category:slug}', function($slug) {
@@ -31,5 +32,9 @@ Route::get('category/{category:slug}', function($slug) {
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth'])->name('dashboard');
+
+Route::get('/dashboard/courses', function () {
+    return view('dashboard');
+})->middleware(['auth'])->name('dashboard.courses');
 
 require __DIR__.'/auth.php';

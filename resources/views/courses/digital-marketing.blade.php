@@ -78,9 +78,7 @@
                         <span class="fw-bold">Lifetime skillsets International Certificate Opportunity for
                             employment</span>
                     </p>
-                    <a href="#" class="text-white ps-5 mt-1"><button type="button" class="btn btn-danger fw-bold shadow-white">
-                            Apply Now!
-                        </button></a>
+                    <button data-course="{{ $course->id }}" class="btn btn-danger fw-bold shadow-white text-white mt-1 applyModal">Apply Now!</button>
                 </div>
             </div>
         </div>
@@ -326,13 +324,69 @@
                         <h1 class="text-black text-left fs-4 fw-bold ps-5 mt-5">
                             Still wondering if the Academy of Digital Marketing is for you?
                         </h1>
-                        <a href="#" class="text-white ps-5 mt-1"><button type="button" class="btn btn-danger fw-bold shadow-white">
-                                Apply Now!
-                            </button></a>
+                        <button data-course="{{ $course->id }}" class="btn btn-danger fw-bold shadow-white text-white mt-1 applyModal">Apply Now!</button>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
+@endsection
+
+@section('scripts')
+<script>
+    $(() => {
+        $('body').on('click', '.applyModal', function(e) {
+            e.preventDefault()
+
+            let course_id = $(this).attr('data-course')
+
+            Swal.fire({
+                title: 'Do you really want to enroll in this academy?',
+                html: `<div class="text-start py-4">
+                <p class="">Academy: <span class="fw-bold">{{ $course->name }}</span></p>
+                <p class="">What skills you'll learn: <span class="fw-bold small">{{ $course->description }}</span></p>
+                <p class="">Lectures: <span class="fw-bold">{{ $course->lectures }}</span> packages of videos</p>
+                <p class="mb-0">Price: <span class="fw-bold">{{ $course->price }}&euro;</span></p>
+                </div>`,
+                showCancelButton: true,
+                confirmButtonText: 'Get me in',
+                icon: 'info',
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $.ajax({
+                        method: 'POST',
+                        url: 'enroll',
+                        data: {
+                            '_token': $('meta[name="csrf-token"]').attr('content'),
+                            course_id
+                        },
+                        success: (response) => {
+                            if (response === 'success') {
+                                Swal.fire('You have been successfully enrolled in this academy. Have a nice journey!', '', 'info').then((result) => {
+                                    if (result.isConfirmed) {
+                                        window.location.href = '/dashboard/courses'
+                                    }
+                                })
+                            } else if (response === 'error') {
+                                Swal.fire({
+                                    icon: 'error',
+                                    title: 'Oops...',
+                                    text: `You have to be logged in to be able to buy this academy`,
+                                    footer: `<a href="{{ route('register') }}">Don\'t have an account yet?</a>`
+                                })
+                            }
+                        },
+                        error: (error) => {
+                            let errors = error.responseJSON
+                            Swal.fire('Error', errors.message, 'error')
+                        }
+                    })
+                }
+            })
+        })
+
+
+    })
+</script>
 @endsection
