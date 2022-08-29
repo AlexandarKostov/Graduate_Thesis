@@ -15,10 +15,16 @@ class CategorySeeder extends Seeder
      */
     public function run()
     {
-        $categories = ['Motivation', 'Development', 'Design', 'Social Media', 'Speeches', 'Copywriting', 'Social Media Tools'];
+        $categories = ['Motivation' => 'motivation', 
+        'Development' => 'development', 
+        'Design' => 'design', 
+        'Social Media' => 'social-media', 
+        'Speeches' => 'speeches', 
+        'Copywriting' => 'copywriting', 
+        'Social Media Tools' => 'social-media-tools'];
 
-        foreach ($categories as $category) {
-            Category::create(['name' => $category]);
+        foreach ($categories as $category => $slug) {
+            Category::create(['name' => $category, 'slug' => $slug]);
         }
     }
 }

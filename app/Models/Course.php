@@ -9,6 +9,16 @@ class Course extends Model
 {
     use HasFactory;
 
+    /**
+     * Get the route key for the model.
+     *
+     * @return string
+     */
+    public function getRouteKeyName()
+    {
+        return 'slug';
+    }
+
     public function videos()
     {
         return $this->hasMany(Video::class);

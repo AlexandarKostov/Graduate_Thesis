@@ -40,7 +40,7 @@
                 <x-input id="password_confirmation" class="block mt-1 w-full" type="password" name="password_confirmation" required />
             </div>
 
-            <div class="mt-4">
+            <!-- <div class="mt-4">
                 <label for="role" class="block mb-2 text-sm font-medium text-gray-900 light:text-gray-400">Select an option</label>
                 <select id="role" name="role" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 light:bg-gray-700 light:border-gray-600 light:placeholder-gray-400 light:text-white light:focus:ring-blue-500 light:focus:border-blue-500">
                     <option selected disabled>Choose your account type</option>
@@ -48,7 +48,7 @@
                     <option @if (old('role') == $role->id) selected @endif value="{{ $role->id }}">{{ $role->name }}</option>
                     @endforeach
                 </select>
-            </div>
+            </div> -->
 
             <div class="flex items-center justify-end mt-4">
                 <a class="underline text-sm text-gray-600 hover:text-gray-900" href="{{ route('login') }}">

@@ -17,6 +17,7 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('slug');
+            $table->text('description'); // Bi stoele What you get with this Course?
             $table->unsignedInteger('lectures');
             $table->unsignedInteger('price');
             $table->boolean('approved')->default(0);
