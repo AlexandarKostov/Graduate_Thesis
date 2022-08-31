@@ -67,8 +67,8 @@ class CourseController extends Controller
 
     public function showCourses()
     {
-
-
+        // dd(Auth::id());
+        // daj gi site kursevi so eden najaven korisnik gi ima, llol
 
         return view('courses');
     }
