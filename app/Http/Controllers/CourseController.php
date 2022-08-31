@@ -64,4 +64,21 @@ class CourseController extends Controller
         
         return response()->json('success');
     }
+
+    public function showCourses()
+    {
+
+
+
+        return view('courses');
+    }
+
+    public function showCourse($id)
+    {
+        $course = Course::where('id', $id)->with('videos')->get();
+
+        return view('show', [
+            'course' => $course,
+        ]);
+    }
 }

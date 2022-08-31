@@ -36,26 +36,8 @@ Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth'])->name('dashboard');
 
-Route::get('/dashboard/courses', function () {
+Route::get('/dashboard/courses', [CourseController::class, 'showCourses'])->middleware(['auth'])->name('dashboard.courses');
 
-    
-    $courses = DB::table('courses')
-                    ->whereRelation('user', 'user_id', '=', Auth::id())
-                    ->get();
-    dd($courses);
-    
-    // dd($users->course);
-
-    return view('courses', [
-        // 'users' => $users,
-        // 'courses' => Course::with('users')->whereRelation('users', 'id', '=', Auth::id())->get()
-    ]);
-})->middleware(['auth'])->name('dashboard.courses');
-
-Route::get('/dashboard/course/{course:slug}', function ($slug) {
-    return view('show', [
-        'course' => Course::where('slug', $slug)->with('videos')->get(),
-    ]);
-})->middleware(['auth'])->name('dashboard.courses.show');
+Route::get('/dashboard/course/{course:slug}', [CourseController::class, 'showCourse'])->name('dashboard.courses.show');
 
 require __DIR__.'/auth.php';
