@@ -476,8 +476,8 @@
                                 Swal.fire({
                                     icon: 'error',
                                     title: 'Oops...',
-                                    text: `You have already bought this academy!`,
-                                    // footer: `<a href="{{ route('register') }}">Don\'t have an account yet?</a>`
+                                    text: `You have already bought this adacemy!`,
+                                    footer: `<a href="{{ route('dashboard.courses') }}">View my academies</a>`
                                 })
                             }
                         },

@@ -3,6 +3,9 @@
 use App\Http\Controllers\CourseController;
 use App\Models\Category;
 use App\Models\Course;
+use App\Models\User;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -34,7 +37,25 @@ Route::get('/dashboard', function () {
 })->middleware(['auth'])->name('dashboard');
 
 Route::get('/dashboard/courses', function () {
-    return view('dashboard');
+
+    
+    $courses = DB::table('courses')
+                    ->whereRelation('user', 'user_id', '=', Auth::id())
+                    ->get();
+    dd($courses);
+    
+    // dd($users->course);
+
+    return view('courses', [
+        // 'users' => $users,
+        // 'courses' => Course::with('users')->whereRelation('users', 'id', '=', Auth::id())->get()
+    ]);
 })->middleware(['auth'])->name('dashboard.courses');
+
+Route::get('/dashboard/course/{course:slug}', function ($slug) {
+    return view('show', [
+        'course' => Course::where('slug', $slug)->with('videos')->get(),
+    ]);
+})->middleware(['auth'])->name('dashboard.courses.show');
 
 require __DIR__.'/auth.php';

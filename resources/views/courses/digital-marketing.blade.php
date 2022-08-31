@@ -375,6 +375,13 @@
                                     text: `You have to be logged in to be able to buy this academy`,
                                     footer: `<a href="{{ route('register') }}">Don\'t have an account yet?</a>`
                                 })
+                            } else if (response === 'error-exists') {
+                                Swal.fire({
+                                    icon: 'error',
+                                    title: 'Oops...',
+                                    text: `You have already bought this adacemy!`,
+                                    footer: `<a href="{{ route('dashboard.courses') }}">View my academies</a>`
+                                })
                             }
                         },
                         error: (error) => {

@@ -51,15 +51,14 @@ class CourseController extends Controller
             return response()->json('error');
         }
 
-        // $exists = DB::table('course_user')
-        //                 ->whereNot('course_id', '=' , $request->course_id)
-        //                 ->whereNot('user_id', '=', Auth::id())
-        //                 ->get();
+        $exists = DB::table('course_user')
+                        ->where('course_id', '=', $request->course_id)
+                        ->where('user_id', '=', Auth::id())
+                        ->get();
 
-        // return $exists;
-        // if ($exists) {
-        //     return response()->json('error-exists');
-        // }
+        if ($exists->count() > 0) {
+            return response()->json('error-exists');
+        }
         
         DB::table('course_user')->insert(['course_id' => $request->course_id, 'user_id' => Auth::id()]);
         
