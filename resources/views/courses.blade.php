@@ -20,14 +20,26 @@
                                     <th scope="col" class="py-3 px-6">
                                         Lectures
                                     </th>
-                                    <th scope="col" class="py-3 px-6">
-
-                                    </th>
+                                    <th scope="col" class="py-3 px-6"></th>
                                 </tr>
                             </thead>
                             <tbody>
-                               
+                                @forelse ($courses1 as $course1)
                                 <tr class="bg-white border-b light:bg-gray-800 light:border-gray-700">
+                                    <th scope="row" class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap light:text-white">
+                                        {{$course1->name}}
+                                    </th>
+                                    <td class="py-4 px-6">
+                                        {{$course1->lectures}}
+                                    </td>
+                                    <td class="py-4 px-6">
+                                        <a href="#" class="font-medium text-blue-600 hover:underline">View more</a>
+                                    </td>
+                                </tr>
+                                @empty
+                                    You're not subscribed to this course
+                                @endforelse
+                                <!-- <tr class="bg-white border-b light:bg-gray-800 light:border-gray-700">
                                     <th scope="row" class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap light:text-white">
                                         dsadas
                                     </th>
@@ -37,7 +49,7 @@
                                     <td class="py-4 px-6">
                                         <a href="#" class="font-medium text-blue-600 hover:underline">View more</a>
                                     </td>
-                                </tr>
+                                </tr> -->
                                 
                             </tbody>
                         </table>

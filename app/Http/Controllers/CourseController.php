@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use App\Models\Course;
+use App\Models\CourseUser;
 use App\Models\Podcast;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -70,13 +71,33 @@ class CourseController extends Controller
         // dd(Auth::id());
         // daj gi site kursevi so eden najaven korisnik gi ima, llol
 
-        return view('courses');
+        $course_user = CourseUser::where('user_id', Auth::id())->get();
+
+        $courses = Course::all();
+
+        foreach ($course_user as $value) {
+            foreach ($courses as $course) {
+                if ($value->course_id == $course->id) {
+                    $kursevi = Course::where('id', $value->course_id)->get();
+                }
+            }
+            // if ($value->course_id == $courses->id) {
+            //     echo 'da';
+            // }
+        }
+
+        // $courses = Course::where('id', $course_user->course_id)->get();
+
+        dd($kursevi);
+        // $courses1 = Course::where('id', $available[0]->course_id)->get();
+        // $courses2 = Course::where('id', $available[1]->course_id)->get();
+        // // $courses3 = Course::where('id', $available[3]->course_id)->first();
+
+        // return view('courses', compact('courses1', 'courses2'));
     }
 
-    public function showCourse($id)
+    public function showCourse(Course $course)
     {
-        $course = Course::where('id', $id)->with('videos')->get();
-
         return view('show', [
             'course' => $course,
         ]);

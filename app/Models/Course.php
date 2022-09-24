@@ -26,6 +26,6 @@ class Course extends Model
 
     public function users()
     {
-        return $this->hasMany(User::class, 'id');
+        return $this->hasMany(User::class);
     }
 }
