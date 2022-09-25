@@ -24,33 +24,19 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @forelse ($courses1 as $course1)
+                                @foreach ($data as $kurs)
                                 <tr class="bg-white border-b light:bg-gray-800 light:border-gray-700">
                                     <th scope="row" class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap light:text-white">
-                                        {{$course1->name}}
+                                    {{ $kurs->course->name }}
                                     </th>
                                     <td class="py-4 px-6">
-                                        {{$course1->lectures}}
+                                    {{ $kurs->course->lectures }}
                                     </td>
                                     <td class="py-4 px-6">
-                                        <a href="#" class="font-medium text-blue-600 hover:underline">View more</a>
+                                        <a href="{{ route('dashboard.courses.show', $kurs->course->slug) }}" class="font-medium text-blue-600 hover:underline">View more</a>
                                     </td>
                                 </tr>
-                                @empty
-                                    You're not subscribed to this course
-                                @endforelse
-                                <!-- <tr class="bg-white border-b light:bg-gray-800 light:border-gray-700">
-                                    <th scope="row" class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap light:text-white">
-                                        dsadas
-                                    </th>
-                                    <td class="py-4 px-6">
-                                        dsadas
-                                    </td>
-                                    <td class="py-4 px-6">
-                                        <a href="#" class="font-medium text-blue-600 hover:underline">View more</a>
-                                    </td>
-                                </tr> -->
-                                
+                                @endforeach
                             </tbody>
                         </table>
                     </div>
